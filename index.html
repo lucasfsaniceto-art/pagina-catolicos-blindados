@@ -1,0 +1,612 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Católico Blindado — Defenda a fé que você ama</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,500;0,600;0,700;0,800;0,900;1,600&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --cream:#F7F2E8;
+    --cream-2:#EFE7D5;
+    --card:#FFFFFF;
+    --gold:#DDA02C;
+    --gold-bright:#EBAE32;
+    --gold-deep:#C9821A;
+    --gold-dark:#A86E12;
+    --orange:#D98A1C;
+    --brown:#2E2418;
+    --brown-2:#4A4030;
+    --brown-soft:#6E6350;
+    --green:#3E8E5A;
+    --red:#C0492E;
+    --line:rgba(46,36,24,.1);
+    --line-2:rgba(46,36,24,.2);
+    --display:'Montserrat',system-ui,sans-serif;
+    --body:'Inter',system-ui,sans-serif;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  html{scroll-behavior:smooth}
+  body{font-family:var(--body);background:var(--cream);color:var(--brown-2);font-size:18px;line-height:1.62;-webkit-font-smoothing:antialiased;overflow-x:hidden}
+  img{max-width:100%;display:block}
+  .wrap{max-width:700px;margin:0 auto;padding:0 22px}
+  .wrap-wide{max-width:1000px;margin:0 auto;padding:0 22px}
+  .center{text-align:center}
+  .gold{color:var(--gold-deep)}
+  .display{font-family:var(--display)}
+  svg{display:block}
+
+  h2.title{font-family:var(--display);font-weight:800;color:var(--brown);font-size:clamp(1.6rem,5vw,2.4rem);line-height:1.12;text-align:center;letter-spacing:-.5px}
+  h2.title .gold{color:var(--gold-deep)}
+
+  .kicker{display:block;font-family:var(--display);font-weight:700;font-size:.72rem;letter-spacing:2.5px;text-transform:uppercase;color:var(--orange);text-align:center;margin-bottom:10px}
+
+  .pill{display:inline-flex;align-items:center;gap:8px;font-family:var(--display);font-weight:700;font-size:.72rem;letter-spacing:2px;text-transform:uppercase;color:#fff;background:linear-gradient(180deg,var(--gold-bright),var(--gold-deep));padding:8px 18px;border-radius:30px;box-shadow:0 4px 12px rgba(190,132,28,.25)}
+
+  .divider{display:flex;align-items:center;justify-content:center;gap:18px;margin:16px auto 0}
+  .divider::before,.divider::after{content:"";height:2px;width:64px;background:var(--gold);opacity:.55}
+  .divider svg{width:30px;height:34px}
+
+  .band{padding:60px 0;position:relative}
+  .band--alt{background:var(--cream-2)}
+  .band--brown{background:var(--brown);color:#E8DFCB}
+  .band--brown h2.title{color:#FBF3DF}
+  .band--brown h2.title .gold{color:var(--gold-bright)}
+  .band--brown .kicker{color:var(--gold-bright)}
+  .band--brown .divider::before,.band--brown .divider::after{background:var(--gold-bright)}
+
+  /* buttons — app style: gold pill, white text */
+  .btn{display:inline-block;font-family:var(--display);font-weight:800;text-decoration:none;cursor:pointer;border:none;padding:18px 34px;font-size:1.05rem;border-radius:999px;line-height:1.2;text-align:center;transition:transform .12s,box-shadow .2s,filter .2s}
+  .btn:hover{transform:translateY(-2px);filter:brightness(1.05)}
+  .btn:active{transform:translateY(0)}
+  .btn:focus-visible{outline:3px solid var(--brown);outline-offset:3px}
+  .btn--primary{background:linear-gradient(180deg,var(--gold-bright),var(--gold-deep));color:#fff;box-shadow:0 10px 24px rgba(190,132,28,.34);text-shadow:0 1px 1px rgba(120,75,8,.25)}
+  .btn--block{display:block;width:100%;max-width:440px;margin:0 auto}
+  .btn small{display:block;font-family:var(--body);font-weight:600;font-size:.8rem;opacity:.9;margin-top:3px;text-shadow:none}
+  .cta{text-align:center;margin-top:34px}
+  .undercta{font-family:var(--body);font-size:.82rem;color:var(--brown-soft);margin-top:13px;font-weight:500}
+
+  .strip{background:var(--brown);color:var(--gold-bright);text-align:center;font-family:var(--display);font-weight:600;font-size:.82rem;letter-spacing:.3px;padding:12px 18px}
+
+  /* HERO */
+  .hero{padding:42px 0 54px;background:radial-gradient(80% 60% at 50% 30%,#FCF8EF,transparent 70%),var(--cream);overflow:hidden}
+  .hero-inner{position:relative;z-index:2;text-align:center}
+  .deco{position:absolute;z-index:1;opacity:.45;pointer-events:none;color:var(--gold)}
+  .deco.l1{top:60px;left:-8px;width:110px}
+  .deco.l2{top:120px;right:-8px;width:110px;transform:scaleX(-1)}
+  .spark{position:absolute;z-index:1;color:var(--gold-bright);opacity:.85;pointer-events:none}
+  .brandlogo{display:flex;align-items:center;justify-content:center;gap:13px;margin-bottom:8px}
+  .brandlogo svg{width:52px;height:58px}
+  .brandlogo .bt{font-family:var(--display);font-weight:800;color:var(--brown);font-size:1.5rem;line-height:1;text-align:left}
+  .brandsub{font-family:var(--display);font-weight:700;letter-spacing:3px;font-size:.7rem;text-transform:uppercase;color:var(--gold-deep);margin-bottom:24px}
+  .hero h1{font-family:var(--display);font-weight:900;color:var(--brown);font-size:clamp(1.8rem,5.6vw,2.8rem);line-height:1.08;letter-spacing:-.8px;max-width:16ch;margin:0 auto}
+  .hero h1 .gold{color:var(--gold-deep)}
+  .hero .lead{color:var(--brown-2);max-width:550px;margin:20px auto 0;font-size:1.07rem}
+  .ph{border:2px dashed rgba(190,132,28,.45);border-radius:14px;background:repeating-linear-gradient(45deg,rgba(221,160,44,.05),rgba(221,160,44,.05) 12px,transparent 12px,transparent 24px),#FCF8EF;display:flex;align-items:center;justify-content:center;text-align:center;color:var(--brown-soft);padding:22px}
+  .ph .tag{display:block;font-family:var(--display);color:var(--gold-deep);font-weight:700;font-size:.66rem;letter-spacing:2px;text-transform:uppercase;margin-bottom:6px}
+  .ph-hero{width:300px;max-width:80%;aspect-ratio:1/1.4;margin:34px auto 0;box-shadow:0 24px 50px rgba(46,36,24,.18)}
+
+  /* brand trust strip */
+  .trustband{background:linear-gradient(180deg,#D7991F,var(--gold-dark));padding:22px 0}
+  .trustband .row{display:flex;justify-content:center;gap:14px 50px;flex-wrap:wrap}
+  .tf{display:flex;align-items:center;gap:12px;color:#FFF8EA}
+  .tf svg{width:30px;height:30px;flex:0 0 30px}
+  .tf b{font-family:var(--display);font-weight:700;font-size:1rem;line-height:1.15;text-align:left}
+
+  .scenes{display:flex;flex-wrap:wrap;justify-content:center;gap:9px;max-width:600px;margin:24px auto 0}
+  .scene{background:var(--card);border:1px solid var(--line-2);border-radius:30px;padding:8px 16px;font-size:.85rem;font-weight:600;color:var(--gold-deep)}
+  .quotes{max-width:580px;margin:28px auto 0;display:grid;gap:12px}
+  .quote{background:var(--card);border:1px solid var(--line);border-left:4px solid var(--gold);border-radius:0 12px 12px 0;padding:16px 20px;font-style:italic;font-size:1.05rem;color:var(--brown);box-shadow:0 4px 14px rgba(46,36,24,.04)}
+  .prose{max-width:580px;margin:0 auto;color:var(--brown-2);text-align:center}
+  .prose p{margin:14px 0}
+  .prose strong{color:var(--brown);font-weight:700}
+
+  .highlight{max-width:600px;margin:0 auto;background:var(--card);border:1px solid var(--line-2);border-radius:18px;padding:36px 28px;text-align:center;box-shadow:0 14px 36px rgba(46,36,24,.08)}
+  .highlight .big{font-family:var(--display);font-weight:800;color:var(--brown);font-size:clamp(1.3rem,3.6vw,1.7rem);line-height:1.28}
+  .highlight .big .gold{color:var(--gold-deep)}
+  .highlight p{color:var(--brown-2);margin-top:16px}
+
+  /* lesson structure list */
+  .feat-list{max-width:560px;margin:22px auto 0;display:grid;gap:11px;text-align:left}
+  .feat{display:flex;gap:15px;align-items:flex-start;background:var(--card);border:1px solid var(--line);border-radius:14px;padding:16px 18px;color:var(--brown-2);box-shadow:0 4px 14px rgba(46,36,24,.04)}
+  .feat .fi{flex:0 0 42px;height:42px;border-radius:11px;background:rgba(221,160,44,.16);color:var(--gold-deep);display:flex;align-items:center;justify-content:center}
+  .feat .fi svg{width:22px;height:22px}
+  .feat b{color:var(--brown);display:block;font-family:var(--display);font-weight:700;font-size:1.02rem;margin-bottom:2px}
+  .access{display:flex;flex-wrap:wrap;justify-content:center;gap:9px;max-width:600px;margin:22px auto 0}
+  .access span{background:rgba(62,142,90,.12);border:1px solid rgba(62,142,90,.32);color:var(--green);border-radius:30px;padding:8px 16px;font-size:.85rem;font-weight:600}
+
+  /* PHONE MOCKUPS */
+  .phones{display:flex;justify-content:center;align-items:flex-start;gap:22px;flex-wrap:wrap;margin-top:38px}
+  .phone{width:230px;border-radius:32px;background:#2E2418;padding:9px;box-shadow:0 26px 54px rgba(46,36,24,.24)}
+  .phone.mid{transform:translateY(-18px)}
+  .phone .screen{background:var(--cream);border-radius:24px;overflow:hidden;aspect-ratio:1/2.02;display:flex;flex-direction:column}
+  .pbar{display:flex;justify-content:space-between;align-items:center;padding:11px 14px 8px;font-family:var(--display);font-weight:700;font-size:.62rem;color:var(--brown)}
+  .pbar .s1{color:#E8691E}.pbar .s2{color:var(--gold-deep)}.pbar .s3{color:var(--red)}
+  .pbody{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:14px;gap:8px}
+  .pbody .pshield{width:42px;height:46px}
+  .pbody .plabel{font-family:var(--display);font-weight:700;color:var(--brown);font-size:.78rem}
+  .pbody .pnote{font-size:.62rem;color:var(--brown-soft);border:1.5px dashed rgba(190,132,28,.5);border-radius:10px;padding:10px 8px;line-height:1.35;background:rgba(255,255,255,.5)}
+  .pnav{display:flex;justify-content:space-around;padding:8px 4px;border-top:1px solid var(--line);background:#fff}
+  .pnav span{font-family:var(--display);font-weight:600;font-size:.48rem;color:var(--brown-soft);display:flex;flex-direction:column;align-items:center;gap:2px}
+  .pnav span.on{color:var(--gold-deep)}
+  .pnav span i{width:13px;height:13px;border-radius:4px;background:currentColor;opacity:.55;font-style:normal}
+  .phone-cap{text-align:center;max-width:560px;margin:26px auto 0;color:var(--brown-2)}
+
+  /* 12 objections */
+  .ogrid{display:grid;grid-template-columns:repeat(2,1fr);gap:12px;margin-top:32px}
+  .ocard{display:flex;gap:13px;align-items:flex-start;background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.14);border-radius:13px;padding:15px 16px}
+  .ocard .num{flex:0 0 30px;height:30px;border-radius:9px;background:var(--gold);color:var(--brown);font-family:var(--display);font-weight:800;display:flex;align-items:center;justify-content:center;font-size:.92rem}
+  .ocard b{display:block;font-family:var(--display);font-weight:700;color:#FBF3DF;font-size:.95rem}
+  .ocard span{font-style:italic;color:#C9BBA0;font-size:.85rem}
+  .ocard.final{grid-column:1/-1;background:rgba(221,160,44,.16);border-color:rgba(221,160,44,.5)}
+  .ocard.final .num{background:var(--gold-bright);color:var(--brown)}
+  .otag{text-align:center;margin-top:26px;color:var(--gold-bright);font-family:var(--display);font-weight:700;font-size:1.05rem}
+  .verse{max-width:560px;margin:26px auto 0;text-align:center}
+  .verse em{font-family:var(--display);font-weight:600;font-style:italic;font-size:1.25rem;color:#FBF3DF}
+  .verse cite{display:block;color:var(--gold-bright);font-style:normal;font-family:var(--display);font-weight:700;margin-top:10px;font-size:.82rem;letter-spacing:1.5px}
+
+  /* gamification */
+  .gstats{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin-top:32px}
+  .gstat{background:var(--card);border:1px solid var(--line);border-radius:15px;padding:22px;text-align:left;box-shadow:0 4px 14px rgba(46,36,24,.04)}
+  .gstat .gic{width:44px;height:44px;border-radius:12px;background:rgba(221,160,44,.16);display:flex;align-items:center;justify-content:center;font-size:1.4rem;margin-bottom:12px}
+  .gstat b{display:block;font-family:var(--display);font-weight:700;color:var(--brown);font-size:1.08rem;margin-bottom:3px}
+  .gstat p{color:var(--brown-soft);font-size:.9rem}
+
+  /* for who */
+  .forwho{max-width:580px;margin:30px auto 0;display:grid;gap:11px}
+  .fw{display:flex;gap:14px;align-items:flex-start;background:var(--card);border:1px solid var(--line);border-radius:14px;padding:15px 18px;font-weight:500;color:var(--brown-2);box-shadow:0 4px 14px rgba(46,36,24,.04)}
+  .fw .c{flex:0 0 26px;height:26px;border-radius:50%;background:var(--green);color:#fff;display:flex;align-items:center;justify-content:center}
+  .fw .c svg{width:15px;height:15px}
+  .fwnote{max-width:560px;margin:24px auto 0;text-align:center;color:var(--brown-2);font-size:1.05rem}
+  .fwnote strong{color:var(--gold-deep)}
+
+  /* deliverables */
+  .deliver{display:grid;grid-template-columns:repeat(2,1fr);gap:14px;margin-top:32px}
+  .dcard{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:22px;position:relative;box-shadow:0 4px 14px rgba(46,36,24,.05)}
+  .dcard.full{grid-column:1/-1;border-color:rgba(190,132,28,.5);background:linear-gradient(180deg,#FFFDF8,var(--card))}
+  .dcard .ic{width:46px;height:46px;border-radius:12px;background:rgba(221,160,44,.16);color:var(--gold-deep);display:flex;align-items:center;justify-content:center;margin-bottom:12px}
+  .dcard .ic svg{width:24px;height:24px}
+  .dcard h4{font-family:var(--display);font-weight:700;color:var(--brown);font-size:1.1rem;margin-bottom:5px}
+  .dcard p{color:var(--brown-soft);font-size:.92rem}
+  .badge{position:absolute;top:14px;right:14px;font-family:var(--display);font-size:.6rem;font-weight:800;letter-spacing:1px;padding:5px 11px;border-radius:20px;text-transform:uppercase}
+  .badge.main{background:linear-gradient(180deg,var(--gold-bright),var(--gold-deep));color:#fff}
+  .badge.bonus{background:rgba(62,142,90,.15);color:var(--green);border:1px solid rgba(62,142,90,.4)}
+
+  /* testimonials */
+  .tgrid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-top:32px}
+  .tcard{background:var(--card);border:1px solid var(--line);border-top:4px solid var(--gold);border-radius:0 0 14px 14px;padding:24px;box-shadow:0 4px 14px rgba(46,36,24,.05)}
+  .stars{color:var(--gold);font-size:1rem;letter-spacing:3px;margin-bottom:12px}
+  .tcard p{font-style:italic;color:var(--brown);font-size:.93rem}
+  .tname{display:flex;align-items:center;gap:11px;margin-top:16px}
+  .tav{width:40px;height:40px;border-radius:50%;flex:0 0 40px;border:2px dashed rgba(190,132,28,.4);background:var(--cream-2);font-size:.5rem;color:var(--brown-soft);display:flex;align-items:center;justify-content:center;font-weight:600;font-family:var(--display)}
+  .tname b{display:block;color:var(--brown);font-family:var(--display);font-weight:700;font-size:.98rem}
+  .tname span{font-size:.75rem;color:var(--brown-soft);font-weight:500}
+
+  /* price */
+  .pcard{max-width:500px;margin:0 auto;background:var(--card);border:2px solid var(--gold);border-radius:24px;overflow:hidden;box-shadow:0 22px 56px rgba(46,36,24,.16)}
+  .phead{background:linear-gradient(180deg,var(--gold-bright),var(--gold-deep));color:#fff;text-align:center;padding:18px;font-family:var(--display);font-weight:800;font-size:1.25rem;letter-spacing:.5px}
+  .pbody2{padding:28px 26px 30px}
+  .ph-pack{width:200px;max-width:70%;aspect-ratio:1/1.3;margin:0 auto 24px;box-shadow:0 16px 34px rgba(46,36,24,.16)}
+  .incl{list-style:none;margin:0 0 22px}
+  .incl li{display:flex;gap:12px;align-items:flex-start;padding:11px 0;border-bottom:1px solid var(--line);font-size:.96rem;font-weight:500;color:var(--brown-2)}
+  .incl li:last-child{border-bottom:none}
+  .incl li .c{color:var(--green);flex:0 0 18px;margin-top:3px}
+  .incl li .c svg{width:16px;height:16px}
+  .pold{text-align:center;color:var(--brown-soft);text-decoration:line-through;font-family:var(--display);font-weight:600}
+  .plbl{text-align:center;color:var(--brown-soft);text-transform:uppercase;letter-spacing:2px;font-size:.74rem;font-family:var(--display);font-weight:700;margin-top:6px}
+  .pnow{text-align:center;margin:4px 0}
+  .pnow .cur{color:var(--gold-deep);font-family:var(--display);font-size:1.5rem;font-weight:800;vertical-align:super}
+  .pnow .val{font-family:var(--display);color:var(--gold-deep);font-size:3.8rem;font-weight:900;line-height:1}
+  .pnow .per{display:block;color:var(--brown-soft);font-size:.9rem;font-weight:600;margin-top:4px}
+  .ppizza{text-align:center;color:var(--brown-2);font-style:italic;font-size:.95rem;margin:6px 0 22px}
+  .ptrust{display:flex;flex-wrap:wrap;justify-content:center;gap:8px 18px;margin-top:18px;font-size:.8rem;color:var(--brown-soft);font-weight:500}
+  .urg{text-align:center;color:#B5541F;font-family:var(--display);font-weight:700;font-size:.88rem;margin-top:16px}
+
+  /* guarantee */
+  .guar{max-width:560px;margin:0 auto;text-align:center;background:var(--card);border:1px solid var(--line-2);border-radius:20px;padding:38px 28px;box-shadow:0 8px 24px rgba(46,36,24,.06)}
+  .seal{width:108px;height:108px;border-radius:50%;margin:0 auto 20px;background:radial-gradient(circle at 50% 35%,var(--gold-bright),var(--gold-deep));color:#fff;display:flex;flex-direction:column;align-items:center;justify-content:center;line-height:1;box-shadow:0 0 30px rgba(190,132,28,.3);font-family:var(--display)}
+  .seal .b{font-size:2.5rem;font-weight:900}
+  .seal .s{font-size:.55rem;font-weight:700;letter-spacing:1px;text-transform:uppercase;margin-top:3px}
+  .guar h3{font-family:var(--display);font-weight:800;color:var(--brown);font-size:1.5rem;margin-bottom:12px}
+  .guar p{color:var(--brown-2);margin:11px 0}
+  .guar .acc{color:var(--green);font-weight:700}
+  .guar .final{color:var(--brown);font-family:var(--display);font-weight:700;font-size:1.1rem;margin-top:16px}
+
+  /* thinking */
+  .think{max-width:620px;margin:30px auto 0;display:grid;gap:12px}
+  .ti{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:18px 20px;box-shadow:0 4px 14px rgba(46,36,24,.04)}
+  .ti .q{font-family:var(--display);font-weight:700;color:var(--gold-deep);font-size:1.08rem;margin-bottom:6px}
+  .ti .a{color:var(--brown-2);font-size:.95rem}
+
+  /* faq */
+  .faq{max-width:620px;margin:30px auto 0;display:grid;gap:10px}
+  .faq details{background:var(--card);border:1px solid var(--line);border-radius:14px;overflow:hidden;box-shadow:0 4px 14px rgba(46,36,24,.04)}
+  .faq summary{list-style:none;cursor:pointer;padding:17px 20px;font-family:var(--display);font-weight:700;color:var(--brown);display:flex;justify-content:space-between;gap:14px;align-items:center}
+  .faq summary::-webkit-details-marker{display:none}
+  .faq summary::after{content:"+";color:var(--gold-deep);font-size:1.5rem;font-weight:700;transition:transform .2s}
+  .faq details[open] summary::after{transform:rotate(45deg)}
+  .faq .fa{padding:0 20px 18px;color:var(--brown-2);font-size:.95rem}
+
+  .about{max-width:580px;margin:0 auto;text-align:center;color:var(--brown-2)}
+  .about p{margin:13px 0}
+  .about strong{color:var(--brown)}
+  .about .motto{color:var(--gold-deep);font-family:var(--display);font-weight:700;font-style:italic;font-size:1.2rem;margin-top:20px}
+
+  .final .lines{max-width:540px;margin:0 auto 8px;text-align:center;color:#D8CDB6}
+  .final .lines p{margin:13px 0}
+  .final .lines .em{color:#FBF3DF;font-family:var(--display);font-weight:700;font-size:1.1rem}
+  .final .signoff{font-family:var(--display);font-weight:700;color:var(--gold-bright);font-size:1.35rem;text-align:center;margin:24px 0;font-style:italic}
+
+  footer{background:var(--brown);padding:34px 0;text-align:center}
+  footer a{font-family:var(--body);color:#C9BBA0;text-decoration:none;margin:0 12px;font-size:.85rem;font-weight:500}
+  footer a:hover{color:var(--gold-bright)}
+  footer .copy{font-family:var(--body);color:#8A7C64;font-size:.78rem;margin-top:12px}
+
+  @media (prefers-reduced-motion:reduce){*{transition:none!important;scroll-behavior:auto!important}}
+  @media(max-width:640px){
+    .band{padding:48px 0}
+    .ogrid,.deliver,.tgrid,.gstats{grid-template-columns:1fr}
+    .deco{display:none}
+    .trustband .row{gap:14px 30px}
+    .phone.mid{transform:none}
+    .gstats{grid-template-columns:1fr 1fr}
+  }
+</style>
+</head>
+<body>
+
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <defs><linearGradient id="gg" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#ECB94A"/><stop offset="1" stop-color="#C2851C"/></linearGradient></defs>
+  <symbol id="shield-smile" viewBox="0 0 64 72">
+    <path d="M32 3 L58 13 V35 C58 53 32 69 32 69 C32 69 6 53 6 35 V13 Z" fill="url(#gg)"/>
+    <path d="M21 31 Q25 35 29 31" fill="none" stroke="#fff" stroke-width="3" stroke-linecap="round"/>
+    <path d="M35 31 Q39 35 43 31" fill="none" stroke="#fff" stroke-width="3" stroke-linecap="round"/>
+    <path d="M24 41 Q32 50 40 41" fill="none" stroke="#fff" stroke-width="3.4" stroke-linecap="round"/>
+  </symbol>
+  <symbol id="shield-cross" viewBox="0 0 30 34">
+    <path d="M15 2 L27 7 V18 C27 27 15 32 15 32 C15 32 3 27 3 18 V7 Z" fill="none" stroke="#DDA02C" stroke-width="2"/>
+    <path d="M15 11 V23 M10 16 H20" stroke="#DDA02C" stroke-width="2.4" stroke-linecap="round"/>
+  </symbol>
+</svg>
+
+<div class="strip">Para a católica que ama a Igreja — mas trava na hora de explicar o porquê</div>
+
+<!-- HERO -->
+<section class="hero">
+  <svg class="deco l1" viewBox="0 0 60 120" fill="none" stroke="currentColor" stroke-width="1.4"><path d="M30 0 V120"/><path d="M30 22 Q12 28 14 14"/><path d="M30 40 Q48 46 46 32"/><path d="M30 60 Q12 66 14 52"/><path d="M30 80 Q48 86 46 72"/></svg>
+  <svg class="deco l2" viewBox="0 0 60 120" fill="none" stroke="currentColor" stroke-width="1.4"><path d="M30 0 V120"/><path d="M30 22 Q12 28 14 14"/><path d="M30 40 Q48 46 46 32"/><path d="M30 60 Q12 66 14 52"/><path d="M30 80 Q48 86 46 72"/></svg>
+  <svg class="spark" style="top:90px;left:14%;width:18px" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0 C13 8 16 11 24 12 C16 13 13 16 12 24 C11 16 8 13 0 12 C8 11 11 8 12 0Z"/></svg>
+  <svg class="spark" style="top:160px;right:16%;width:13px" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0 C13 8 16 11 24 12 C16 13 13 16 12 24 C11 16 8 13 0 12 C8 11 11 8 12 0Z"/></svg>
+  <div class="wrap hero-inner">
+    <div class="brandlogo"><svg><use href="#shield-smile"/></svg><span class="bt">Católico<br>Blindado</span></div>
+    <p class="brandsub">Trilha da Blindagem</p>
+    <h1 class="display">Nunca mais fique <span class="gold">sem palavras</span> quando questionarem a sua fé</h1>
+    <p class="lead">Aprenda a responder às 12 acusações mais comuns contra a fé católica — com Bíblia, lógica e caridade. Tudo em um material digital interativo, com texto e áudio, que você abre direto no celular.</p>
+    <div class="ph ph-hero"><div><span class="tag">Imagem</span>Capa do material<br>(troque pela sua arte)</div></div>
+    <div class="cta">
+      <a href="#oferta" class="btn btn--primary btn--block">Quero me blindar agora<small>Acesso imediato pelo celular</small></a>
+      <p class="undercta">Pagamento seguro · Garantia de 7 dias</p>
+    </div>
+  </div>
+</section>
+
+<!-- TRUST STRIP -->
+<div class="trustband">
+  <div class="wrap-wide"><div class="row">
+    <div class="tf"><svg viewBox="0 0 32 32" fill="none" stroke="#FFF8EA" stroke-width="2"><path d="M16 3 L27 7 V16 C27 24 16 29 16 29 C16 29 5 24 5 16 V7 Z"/><path d="M11 16 l3.5 3.5 L21 12" stroke-linecap="round" stroke-linejoin="round"/></svg><b>Respostas<br>claras</b></div>
+    <div class="tf"><svg viewBox="0 0 32 32" fill="none" stroke="#FFF8EA" stroke-width="2"><path d="M16 9 C12 6 7 6 4 7 V25 C7 24 12 24 16 27 C20 24 25 24 28 25 V7 C25 6 20 6 16 9 Z"/><path d="M16 9 V27"/><path d="M16 4 V8 M14 6 H18" stroke-linecap="round"/></svg><b>Base<br>bíblica</b></div>
+    <div class="tf"><svg viewBox="0 0 32 32" fill="none" stroke="#FFF8EA" stroke-width="2"><circle cx="16" cy="11" r="4"/><circle cx="7" cy="13" r="3"/><circle cx="25" cy="13" r="3"/><path d="M9 26 C9 21 12 18 16 18 C20 18 23 21 23 26" stroke-linecap="round"/><path d="M2 25 C2 21 4 19 7 19 M30 25 C30 21 28 19 25 19" stroke-linecap="round"/></svg><b>Fé com<br>caridade</b></div>
+  </div></div>
+</div>
+
+<!-- IDENTIFICATION -->
+<section class="band">
+  <div class="wrap center">
+    <h2 class="title">Você já <span class="gold">viveu</span> isso?</h2>
+    <div class="divider"><svg><use href="#shield-cross"/></svg></div>
+    <div class="scenes">
+      <span class="scene">No almoço de domingo</span><span class="scene">No grupo da família</span><span class="scene">Numa pergunta do seu filho</span><span class="scene">Com o genro ou a nora</span><span class="scene">Na catequese</span>
+    </div>
+    <p class="prose" style="margin-top:24px">Alguém solta uma frase com toda a segurança do mundo:</p>
+    <div class="quotes">
+      <div class="quote">"Maria foi só uma mulher comum."</div>
+      <div class="quote">"Vocês adoram imagens."</div>
+      <div class="quote">"Purgatório não existe."</div>
+      <div class="quote">"Por que confessar para um padre?"</div>
+    </div>
+    <p class="prose" style="margin-top:24px">Por fora você mantém a calma. Mas por dentro dói — porque você <strong>ama a Igreja</strong> e sabe que existe resposta. Só que, na hora, as palavras não vêm. E o silêncio faz a outra pessoa achar que venceu.</p>
+  </div>
+</section>
+
+<!-- REFRAME -->
+<section class="band band--alt">
+  <div class="wrap">
+    <div class="highlight">
+      <p class="big">O silêncio não é falta de fé.<br>É falta de <span class="gold">formação</span> — e isso tem conserto.</p>
+      <p>Muita gente cresceu católica, recebeu os sacramentos, participou de missas e novenas… mas nunca foi treinada para defender a própria fé. O problema nunca foi a sua fé. Foi a formação que ninguém te deu.</p>
+    </div>
+  </div>
+</section>
+
+<!-- STAKES -->
+<section class="band">
+  <div class="wrap center">
+    <h2 class="title">Quem você ama está sendo formado <span class="gold">todos os dias</span></h2>
+    <div class="divider"><svg><use href="#shield-cross"/></svg></div>
+    <p class="prose" style="margin-top:24px">Seus filhos, seus netos, suas amigas — todos recebem mensagens sobre fé o tempo todo: num vídeo, numa conversa, num relacionamento. A pergunta não é <strong>se</strong> eles serão formados. É <strong>por quem</strong>.</p>
+    <p class="prose">Quando a fé que você passou for colocada à prova, você quer estar pronta para responder com serenidade — não calada, nem improvisando.</p>
+    <div class="cta"><a href="#oferta" class="btn btn--primary">Quero estar preparada</a></div>
+  </div>
+</section>
+
+<!-- WHAT IT IS -->
+<section class="band band--alt">
+  <div class="wrap center">
+    <span class="kicker">Como funciona</span>
+    <h2 class="title">Afinal, o que é a <span class="gold">Trilha da Blindagem</span>?</h2>
+    <div class="divider"><svg><use href="#shield-cross"/></svg></div>
+    <p class="prose" style="margin-top:24px">É um <strong>material digital interativo</strong> que você abre direto no celular — como um livro que se organiza em <strong>12 etapas</strong>, uma acusação por vez. Não é vídeo-aula longa e cansativa. Também não é um PDF solto e parado. É tudo reunido em um só lugar, no seu ritmo.</p>
+    <p class="prose" style="margin-top:26px;color:var(--gold-deep);font-weight:700;font-family:var(--display)">Em cada uma das 12 etapas, você encontra:</p>
+    <div class="feat-list">
+      <div class="feat"><span class="fi"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4h11a3 3 0 0 1 3 3v13H7a3 3 0 0 1-3-3Z"/><path d="M8 9h6M8 13h6"/></svg></span><div><b>Resumo do tema</b>A explicação clara e direta, sem termos complicados, para você entender o porquê.</div></div>
+      <div class="feat"><span class="fi"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 3h11l3 3v15H6Z"/><path d="M10 4v14M7 8h2M7 12h2" stroke-linecap="round"/></svg></span><div><b>Versículos para guardar</b>A base bíblica de cada resposta, reunida para você lembrar na hora.</div></div>
+      <div class="feat"><span class="fi"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 5h16v11H9l-4 4Z" stroke-linejoin="round"/><path d="M9 10h6"/></svg></span><div><b>Exercícios e Modo Debate</b>Treino prático com as respostas certas e erradas, para você fixar e usar.</div></div>
+      <div class="feat"><span class="fi"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 21s-7-4.5-7-10a4 4 0 0 1 7-2.5A4 4 0 0 1 19 11c0 5.5-7 10-7 10Z" stroke-linejoin="round"/></svg></span><div><b>Como dizer com caridade</b>O jeito de responder com firmeza e amor, sem brigar nem humilhar ninguém.</div></div>
+      <div class="feat"><span class="fi"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 14a4 4 0 0 1 4-4h2v8H7a4 4 0 0 1-4-4Z"/><path d="M13 6a4 4 0 0 1 8 0v9a4 4 0 0 0-8 0Z"/></svg></span><div><b>Áudio da etapa</b>Para ouvir quando quiser: cozinhando, dirigindo ou caminhando.</div></div>
+    </div>
+    <p class="prose" style="margin-top:28px;font-weight:700;color:var(--brown);font-family:var(--display)">Como você acessa — simples assim:</p>
+    <div class="access">
+      <span>Abre por um link no celular</span><span>Sem baixar nada</span><span>Sem senha complicada</span><span>No seu ritmo, quando quiser</span>
+    </div>
+    <p class="prose" style="margin-top:28px">Ou seja: você não precisa virar teóloga — nem entender de tecnologia. É só abrir e começar.</p>
+    <div class="cta"><a href="#oferta" class="btn btn--primary">Quero começar a Trilha</a></div>
+  </div>
+</section>
+
+<!-- INSIDE / PHONE MOCKUPS -->
+<section class="band">
+  <div class="wrap-wide center">
+    <span class="kicker">Veja por dentro</span>
+    <h2 class="title">Tudo organizado, bonito e <span class="gold">fácil de usar</span></h2>
+    <div class="divider"><svg><use href="#shield-cross"/></svg></div>
+    <div class="phones">
+      <div class="phone">
+        <div class="screen">
+          <div class="pbar"><span class="s1">🔥 2</span><span class="s2">🛡️ 120</span><span class="s3">❤️ 25</span></div>
+          <div class="pbody"><div class="plabel">A Trilha</div><div class="pnote">Print da Trilha<br>(as 12 etapas em sequência)</div></div>
+          <div class="pnav"><span class="on"><i></i>Trilha</span><span><i></i>Estudo</span><span><i></i>Áudios</span><span><i></i>Medalhas</span><span><i></i>Perfil</span></div>
+        </div>
+      </div>
+      <div class="phone mid">
+        <div class="screen">
+          <div class="pbar"><span class="s1">🔥 2</span><span class="s2">🛡️ 120</span><span class="s3">❤️ 25</span></div>
+          <div class="pbody"><svg class="pshield"><use href="#shield-smile"/></svg><div class="plabel">Uma Etapa</div><div class="pnote">Print de uma etapa<br>(resumo, versículos, exercícios)</div></div>
+          <div class="pnav"><span><i></i>Trilha</span><span class="on"><i></i>Estudo</span><span><i></i>Áudios</span><span><i></i>Medalhas</span><span><i></i>Perfil</span></div>
+        </div>
+      </div>
+      <div class="phone">
+        <div class="screen">
+          <div class="pbar"><span class="s1">🔥 2</span><span class="s2">🛡️ 120</span><span class="s3">❤️ 25</span></div>
+          <div class="pbody"><div class="plabel">Os Áudios</div><div class="pnote">Print dos Áudios<br>(ouça a trilha completa)</div></div>
+          <div class="pnav"><span><i></i>Trilha</span><span><i></i>Estudo</span><span class="on"><i></i>Áudios</span><span><i></i>Medalhas</span><span><i></i>Perfil</span></div>
+        </div>
+      </div>
+    </div>
+    <p class="phone-cap">Você abre, vê suas etapas em ordem e avança uma de cada vez. Cada etapa concluída é uma vitória a mais — e você sente o progresso acontecendo.</p>
+  </div>
+</section>
+
+<!-- 12 OBJECTIONS -->
+<section class="band band--brown">
+  <div class="wrap-wide center">
+    <span class="kicker">As 12 etapas</span>
+    <h2 class="title">Cada etapa, uma <span class="gold">resposta blindada</span></h2>
+    <div class="divider"><svg><use href="#shield-cross"/></svg></div>
+    <div class="ogrid" style="text-align:left">
+      <div class="ocard"><span class="num">1</span><div><b>Sola Scriptura</b><span>"A Bíblia basta!"</span></div></div>
+      <div class="ocard"><span class="num">2</span><div><b>Maria, Mãe de Deus</b><span>"Era só uma mulher comum"</span></div></div>
+      <div class="ocard"><span class="num">3</span><div><b>Imagens sagradas</b><span>"Vocês adoram imagens"</span></div></div>
+      <div class="ocard"><span class="num">4</span><div><b>Intercessão dos santos</b><span>"Santos não ouvem orações"</span></div></div>
+      <div class="ocard"><span class="num">5</span><div><b>Purgatório</b><span>"Não está na Bíblia"</span></div></div>
+      <div class="ocard"><span class="num">6</span><div><b>Confissão</b><span>"Por que confessar a um padre?"</span></div></div>
+      <div class="ocard"><span class="num">7</span><div><b>A Santa Missa</b><span>"Repetem o sacrifício?"</span></div></div>
+      <div class="ocard"><span class="num">8</span><div><b>Batismo infantil</b><span>"Invenção da Igreja"</span></div></div>
+      <div class="ocard"><span class="num">9</span><div><b>Os Dez Mandamentos</b><span>"Vocês mudaram a Lei"</span></div></div>
+      <div class="ocard"><span class="num">10</span><div><b>Celibato dos padres</b><span>"Pedro era casado!"</span></div></div>
+      <div class="ocard"><span class="num">11</span><div><b>Constantino</b><span>"Ele fundou a Igreja"</span></div></div>
+      <div class="ocard"><span class="num">12</span><div><b>Riqueza da Igreja</b><span>"Rica e corrupta"</span></div></div>
+      <div class="ocard final"><span class="num">★</span><div><b>Debate Final</b><span>Prove que você está blindada</span></div></div>
+    </div>
+    <div class="verse"><em>"Estai sempre prontos a dar razão da vossa esperança."</em><cite>I PEDRO 3, 15</cite></div>
+    <div class="cta"><a href="#oferta" class="btn btn--primary">Começar a Trilha da Blindagem</a></div>
+  </div>
+</section>
+
+<!-- GAMIFICATION -->
+<section class="band">
+  <div class="wrap-wide center">
+    <span class="kicker">Por dentro da trilha</span>
+    <h2 class="title">Não é um material parado.<br>É uma trilha que te <span class="gold">puxa pra frente</span></h2>
+    <div class="divider"><svg><use href="#shield-cross"/></svg></div>
+    <div class="gstats" style="text-align:left">
+      <div class="gstat"><div class="gic">🔥</div><b>Chama da Fé</b><p>Sua sequência diária de estudo. Ela te ajuda a criar o hábito e não largar no meio.</p></div>
+      <div class="gstat"><div class="gic">🛡️</div><b>Escudos e XP</b><p>A cada etapa você ganha pontos e vê seu progresso crescer de verdade.</p></div>
+      <div class="gstat"><div class="gic">🎖️</div><b>Níveis</b><p>Você evolui de Discípulo a Defensor conforme avança na formação.</p></div>
+      <div class="gstat"><div class="gic">🏅</div><b>Medalhas</b><p>Conquistas que marcam cada vitória da sua jornada de blindagem.</p></div>
+      <div class="gstat"><div class="gic">⚔️</div><b>Debate Final</b><p>A prova final da trilha: a hora de mostrar que você está realmente pronta.</p></div>
+      <div class="gstat"><div class="gic">📜</div><b>Certificado</b><p>Conclua a trilha e receba seu Certificado de Apologista em PDF, com o seu nome.</p></div>
+    </div>
+    <p class="phone-cap">E ainda tem a <strong>Ordem de São Miguel</strong>: sua posição numa liga semanal com outros católicos que também estão se formando.</p>
+    <div class="cta"><a href="#oferta" class="btn btn--primary">Quero fazer parte</a></div>
+  </div>
+</section>
+
+<!-- WHO FOR -->
+<section class="band band--alt">
+  <div class="wrap center">
+    <h2 class="title">É para você se…</h2>
+    <div class="divider"><svg><use href="#shield-cross"/></svg></div>
+    <div class="forwho" style="text-align:left">
+      <div class="fw"><span class="c"><svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="3"><path d="M5 12l4 4 10-10" stroke-linecap="round" stroke-linejoin="round"/></svg></span>Você já ficou sem resposta numa conversa sobre a fé.</div>
+      <div class="fw"><span class="c"><svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="3"><path d="M5 12l4 4 10-10" stroke-linecap="round" stroke-linejoin="round"/></svg></span>Tem filhos, netos ou amigos sendo influenciados por ataques à Igreja.</div>
+      <div class="fw"><span class="c"><svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="3"><path d="M5 12l4 4 10-10" stroke-linecap="round" stroke-linejoin="round"/></svg></span>Participa de catequese, grupo de oração, pastoral ou formação.</div>
+      <div class="fw"><span class="c"><svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="3"><path d="M5 12l4 4 10-10" stroke-linecap="round" stroke-linejoin="round"/></svg></span>Ama a Igreja, mas nunca recebeu formação firme para defendê-la.</div>
+      <div class="fw"><span class="c"><svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="3"><path d="M5 12l4 4 10-10" stroke-linecap="round" stroke-linejoin="round"/></svg></span>Quer responder com caridade — sem brigar e sem parecer fraca.</div>
+    </div>
+    <p class="fwnote">Não é para quem quer vencer discussão por vaidade. É para quem quer <strong>defender a fé com verdade, firmeza e amor.</strong></p>
+  </div>
+</section>
+
+<!-- DELIVERABLES -->
+<section class="band">
+  <div class="wrap-wide center">
+    <span class="kicker">Tudo incluso</span>
+    <h2 class="title">O que você <span class="gold">recebe</span>:</h2>
+    <div class="divider"><svg><use href="#shield-cross"/></svg></div>
+    <div class="deliver" style="text-align:left">
+      <div class="dcard full"><span class="badge main">Principal</span><div class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4h11a3 3 0 0 1 3 3v13H7a3 3 0 0 1-3-3Z"/><path d="M8 9h6M8 13h6"/></svg></div><h4>Trilha da Blindagem — 12 etapas</h4><p>A formação central: cada etapa com resumo do tema, versículos, exercícios, Modo Debate, "Como dizer com caridade" e o áudio. Mais o Debate Final.</p></div>
+      <div class="dcard"><span class="badge bonus">Bônus</span><div class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M13 2 4 14h7l-1 8 9-12h-7Z" stroke-linejoin="round"/></svg></div><h4>Kit Blindagem Express</h4><p>As 12 respostas prontas para copiar e colar no WhatsApp na hora.</p></div>
+      <div class="dcard"><span class="badge bonus">Bônus</span><div class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="9"/><path d="M10 9l5 3-5 3Z" fill="currentColor"/></svg></div><h4>Audiobook completo</h4><p>O livro inteiro narrado, capítulo por capítulo, para aprender ouvindo.</p></div>
+      <div class="dcard"><span class="badge bonus">Bônus</span><div class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 4h12a2 2 0 0 1 2 2v14l-4-3H5Z" stroke-linejoin="round"/></svg></div><h4>Guia de Bolso</h4><p>Resumo em PDF para consulta rápida e impressão.</p></div>
+      <div class="dcard"><span class="badge bonus">Bônus</span><div class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 5h16v11H8l-4 4Z" stroke-linejoin="round"/></svg></div><h4>Grupo VIP de Estudos</h4><p>Comunidade no WhatsApp com aprofundamento diário em temas católicos.</p></div>
+      <div class="dcard"><span class="badge bonus">Bônus</span><div class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 3v18M5 8l7-5 7 5"/></svg></div><h4>Desafio 7 Dias Blindado</h4><p>Plano guiado para dominar o método em apenas uma semana.</p></div>
+      <div class="dcard"><span class="badge bonus">Bônus</span><div class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 3v8M8 6h8" stroke-linecap="round"/><path d="M6 11c0 6 6 10 6 10s6-4 6-10"/></svg></div><h4>Devocional de São Miguel</h4><p>Orações de combate espiritual para o seu dia a dia.</p></div>
+      <div class="dcard"><span class="badge bonus">Bônus</span><div class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="9" r="5"/><path d="M9 13l-2 8 5-3 5 3-2-8"/></svg></div><h4>Certificado de Apologista</h4><p>PDF com o seu nome ao concluir a trilha completa.</p></div>
+    </div>
+    <div class="cta"><a href="#oferta" class="btn btn--primary">Quero garantir meu acesso</a></div>
+  </div>
+</section>
+
+<!-- TESTIMONIALS -->
+<section class="band band--alt">
+  <div class="wrap-wide center">
+    <h2 class="title">Católicas que deixaram o <span class="gold">silêncio</span> para trás</h2>
+    <div class="divider"><svg><use href="#shield-cross"/></svg></div>
+    <div class="tgrid" style="text-align:left">
+      <div class="tcard"><div class="stars">★★★★★</div><p>"Eu sempre ficava muda quando falavam de Maria. Depois dessa etapa, consegui explicar para minha irmã com calma. Pela primeira vez não me senti envergonhada."</p><div class="tname"><span class="tav">foto</span><span><b>Fernanda C.</b><span>Mãe e catequista</span></span></div></div>
+      <div class="tcard"><div class="stars">★★★★★</div><p>"Sou catequista há anos e mesmo assim encontrei explicações que nunca tinham me dado de forma tão clara. Direto, respeitoso e muito útil."</p><div class="tname"><span class="tav">foto</span><span><b>Lúcia H.</b><span>Catequista</span></span></div></div>
+      <div class="tcard"><div class="stars">★★★★★</div><p>"Meu filho vivia me fazendo perguntas que eu não sabia responder. Agora converso com ele sem medo e sem inventar resposta."</p><div class="tname"><span class="tav">foto</span><span><b>Maria R.</b><span>Mãe de dois</span></span></div></div>
+      <div class="tcard"><div class="stars">★★★★★</div><p>"O que mais gostei é que não ensina a brigar. Ensina a responder com firmeza. Mudou meu jeito de conversar com amigos evangélicos."</p><div class="tname"><span class="tav">foto</span><span><b>Patrícia L.</b><span>Grupo de oração</span></span></div></div>
+      <div class="tcard"><div class="stars">★★★★★</div><p>"Achei que precisava de livros enormes para entender apologética. A Trilha me ajudou a começar de um jeito simples e sério."</p><div class="tname"><span class="tav">foto</span><span><b>Sônia M.</b><span>Avó de quatro</span></span></div></div>
+      <div class="tcard" style="display:flex;align-items:center;justify-content:center;border-top-color:var(--gold);border-style:dashed"><p style="font-style:normal;color:var(--brown-soft);text-align:center;font-size:.85rem">Espaço reservado para novos depoimentos</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- OFFER -->
+<section class="band" id="oferta">
+  <div class="wrap">
+    <div class="pcard">
+      <div class="phead">RECEBA TUDO ISSO HOJE</div>
+      <div class="pbody2">
+        <div class="ph ph-pack"><div><span class="tag">Imagem</span>Mockup do pacote</div></div>
+        <ul class="incl">
+          <li><span class="c"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path d="M5 12l4 4 10-10" stroke-linecap="round" stroke-linejoin="round"/></svg></span>Trilha da Blindagem — 12 etapas + Debate Final</li>
+          <li><span class="c"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path d="M5 12l4 4 10-10" stroke-linecap="round" stroke-linejoin="round"/></svg></span>Material de estudo e áudio em cada etapa</li>
+          <li><span class="c"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path d="M5 12l4 4 10-10" stroke-linecap="round" stroke-linejoin="round"/></svg></span>Kit Blindagem Express (respostas pro WhatsApp)</li>
+          <li><span class="c"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path d="M5 12l4 4 10-10" stroke-linecap="round" stroke-linejoin="round"/></svg></span>Audiobook completo + Guia de Bolso</li>
+          <li><span class="c"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path d="M5 12l4 4 10-10" stroke-linecap="round" stroke-linejoin="round"/></svg></span>Grupo VIP + Desafio 7 Dias Blindado</li>
+          <li><span class="c"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path d="M5 12l4 4 10-10" stroke-linecap="round" stroke-linejoin="round"/></svg></span>Devocional de São Miguel</li>
+          <li><span class="c"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path d="M5 12l4 4 10-10" stroke-linecap="round" stroke-linejoin="round"/></svg></span>Certificado de Apologista + Acesso anual</li>
+        </ul>
+        <div class="pold">DE R$ 97</div>
+        <div class="plbl">Hoje por apenas</div>
+        <div class="pnow"><span class="cur">R$</span><span class="val">14,90</span><span class="per">por ano</span></div>
+        <p class="ppizza">Menos que uma pizza — para nunca mais ficar calada quando atacarem a fé que você ama.</p>
+        <!-- ÚNICO BOTÃO COM LINK EXTERNO: troque o href pelo seu link de checkout -->
+        <a href="https://COLE-AQUI-O-LINK-DO-SEU-CHECKOUT" class="btn btn--primary btn--block">Comprar agora com segurança<small>Acesso imediato pelo celular</small></a>
+        <div class="ptrust"><span>Pagamento seguro</span><span>Sem baixar nada</span><span>Acesso por 1 ano</span></div>
+        <p class="urg">Aproveite: esse preço pode não estar disponível depois.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- GUARANTEE -->
+<section class="band band--alt">
+  <div class="wrap">
+    <div class="guar">
+      <div class="seal"><span class="b">7</span><span class="s">Dias de Garantia</span></div>
+      <h3>Garantia de 7 dias</h3>
+      <p>Você tem 7 dias para entrar, conhecer a Trilha e ver se o conteúdo realmente ajuda você a defender melhor a fé católica.</p>
+      <p>Se sentir que não era para você, basta pedir o reembolso. <span class="acc">Sem interrogatório, sem constrangimento.</span></p>
+      <p>Nossa missão é formar católicas mais firmes e preparadas. Se não cumprirmos isso, o risco é nosso.</p>
+      <p class="final">A única forma de perder é continuar sem resposta.</p>
+      <div class="cta"><a href="#oferta" class="btn btn--primary">Quero me blindar agora</a></div>
+    </div>
+  </div>
+</section>
+
+<!-- THINKING -->
+<section class="band">
+  <div class="wrap">
+    <h2 class="title">Talvez você esteja <span class="gold">pensando…</span></h2>
+    <div class="divider"><svg><use href="#shield-cross"/></svg></div>
+    <div class="think">
+      <div class="ti"><p class="q">"Eu não sou boa com tecnologia."</p><p class="a">Você não baixa nada em loja. Abre por um link, direto no celular, com instruções claras após a compra.</p></div>
+      <div class="ti"><p class="q">"Tenho medo de ser difícil demais."</p><p class="a">A Trilha foi feita para católicas comuns. Sem latim, sem teologia pesada — tudo em linguagem clara.</p></div>
+      <div class="ti"><p class="q">"Não quero discutir com ninguém."</p><p class="a">Perfeito. Não ensina briga, ensina defesa com caridade. A missão não é vencer pessoas, é defender a verdade sem perder a alma.</p></div>
+      <div class="ti"><p class="q">"Eu não tenho muito tempo."</p><p class="a">As etapas são curtas. Você estuda aos poucos, ouve os áudios e revisa quando puder.</p></div>
+      <div class="ti"><p class="q">"Já sou católica há muitos anos."</p><p class="a">Então sabe como dói amar a Igreja e ainda não saber explicar pontos básicos. Tempo de Igreja não substitui formação.</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- FAQ -->
+<section class="band band--alt">
+  <div class="wrap">
+    <h2 class="title">Perguntas <span class="gold">frequentes</span></h2>
+    <div class="divider"><svg><use href="#shield-cross"/></svg></div>
+    <div class="faq">
+      <details><summary>Em que formato eu recebo? É vídeo, PDF…?</summary><p class="fa">É um material digital interativo: cada uma das 12 etapas tem o resumo do tema, os versículos, os exercícios (Modo Debate), o "como dizer com caridade" e o áudio. Você abre tudo por um link, direto no celular — não é vídeo-aula longa, nem um PDF solto.</p></details>
+      <details><summary>Como recebo o acesso?</summary><p class="fa">Após a compra, você recebe as instruções para acessar o Católico Blindado pelo celular.</p></details>
+      <details><summary>Preciso baixar algum aplicativo?</summary><p class="fa">Não. Você não precisa baixar nada em loja, nem instalar nada. Abre por um link, direto no navegador do celular.</p></details>
+      <details><summary>Posso imprimir os materiais?</summary><p class="fa">Sim. O Guia de Bolso e os materiais em PDF podem ser salvos e impressos para estudo pessoal.</p></details>
+      <details><summary>O conteúdo é católico de verdade?</summary><p class="fa">Sim. Segue a defesa da fé católica, com respeito, lógica, Bíblia e caridade.</p></details>
+      <details><summary>Por quanto tempo tenho acesso?</summary><p class="fa">O acesso é anual.</p></details>
+      <details><summary>E se eu não gostar?</summary><p class="fa">Você tem 7 dias de garantia para pedir reembolso, sem perguntas.</p></details>
+    </div>
+    <div class="cta"><a href="#oferta" class="btn btn--primary">Quero garantir meu acesso</a></div>
+  </div>
+</section>
+
+<!-- ABOUT -->
+<section class="band">
+  <div class="wrap">
+    <h2 class="title">Sobre a <span class="gold">Editora Valentes da Fé</span></h2>
+    <div class="divider"><svg><use href="#shield-cross"/></svg></div>
+    <div class="about" style="margin-top:24px">
+      <p>A Editora Valentes da Fé nasceu com uma missão clara: <strong>fortalecer católicos na batalha espiritual, moral e intelectual do dia a dia.</strong></p>
+      <p>Nossos conteúdos são práticos, devocionais e enraizados na fé da Igreja Católica. Acreditamos que defender a fé não é atacar pessoas — é amar a verdade, proteger a própria casa e formar famílias mais firmes.</p>
+      <p class="motto">Para quem não quer mais lutar sozinha.</p>
+    </div>
+  </div>
+</section>
+
+<!-- FINAL -->
+<section class="band band--brown final">
+  <div class="wrap center">
+    <h2 class="title">A próxima pergunta pode vir <span class="gold">hoje</span></h2>
+    <div class="divider"><svg><use href="#shield-cross"/></svg></div>
+    <div class="lines" style="margin-top:24px">
+      <p>No grupo da família. Na mesa do almoço. Na conversa com um filho.</p>
+      <p class="em">Você pode continuar dependendo do improviso — ou começar agora a se preparar.</p>
+      <p>A fé católica não precisa de gritaria para se defender. Precisa de católicas formadas: com a Bíblia na mão, caridade no tom e firmeza na alma.</p>
+    </div>
+    <p class="signoff">Treine respostas. Blinde sua fé.</p>
+    <a href="#oferta" class="btn btn--primary btn--block">Quero me blindar agora</a>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">
+    <a href="#">Política de Privacidade</a>
+    <a href="#">Termos de Uso</a>
+    <p class="copy">Todos os direitos reservados © Editora Valentes da Fé</p>
+  </div>
+</footer>
+
+</body>
+</html>
